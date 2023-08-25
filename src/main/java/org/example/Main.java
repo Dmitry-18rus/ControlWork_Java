@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class Main {
 
-    public static Map foo(double chanceArr1, double chanceArr2, double chanceArr3, Toy t1, Toy t2, Toy t3, String res, Double random, Map mass, FileWriter writer, int i) {
+    public static void foo(double chanceArr1, double chanceArr2, double chanceArr3, Toy t1, Toy t2, Toy t3, String res, Double random, FileWriter writer, int i) {
         random = Math.round((Math.random()) * 100.0) / 100.0;// 1..100
 
         if (random <= chanceArr1) {
@@ -38,7 +38,6 @@ public class Main {
         if (random > chanceArr2) {
             res = t3.nameToy; // 0,6 кукла
         }
-        mass.put(res, random);
             String text = String.format(" Выпала игрушка -");
             System.out.println((i+1) +" " + text + " "+ res+" " + random);
         try {
@@ -48,7 +47,6 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return mass;
     }
     public static void main(String[] args) {
         Toy t1 = new Toy();
@@ -77,10 +75,9 @@ public class Main {
         Double chanceArr3 = Double.parseDouble(arr3[1]) + chanceArr2;
         String res = "";
         Double random = 0.0;
-        Map<String, Double> mass = new HashMap<>();
         try (FileWriter writer = new FileWriter("toys.txt", false)) {
             for (int i = 0; i < 10; i++) {
-                Map otvet = foo(chanceArr1, chanceArr2, chanceArr3, t1, t2, t3, res, random, mass,writer,i);
+                foo(chanceArr1, chanceArr2, chanceArr3, t1, t2, t3, res, random, writer,i);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
